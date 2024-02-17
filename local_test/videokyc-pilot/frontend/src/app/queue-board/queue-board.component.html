@@ -1,0 +1,57 @@
+<agent-layout>
+    <div class="section-body">
+        <div class="card">
+            <div class="card-header">
+                <h4>Queued Sessions</h4>
+                <div class="card-header-action">
+                    <button (click)="loadActiveSessions(true)" type="button" class="btn btn-primary mr-1"
+                        type="button">Refresh</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">SL.No</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Customer PAN</th>
+                            <th scope="col">Queued At</th>
+                            <th scope="col">Queue Status</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let session of activeSessions; let i=index;">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{session.customerInfo.name}}</td>
+                            <td>{{session.customerInfo.panNumber}}</td>
+                            <td>
+                                <span tooltipPosition="top" placeholder="Top" pTooltip="{{session.queueInfo.queuedTs
+                                  == null ? 'Yet to Queue' : session.queueInfo.queuedTs | date:'MMM d, y h:mm a'}}">
+                                    {{session.queueInfo.queuedTs == null ? 'Yet to Queue' : session.queueInfo.queuedTs |
+                                    timeAgo}}</span>
+                            </td>
+                            <td>{{getQueueStatus(session.queueInfo.queueStatus) | formatEnum}}</td>
+                            <td>
+                                    <p-button *ngIf="session.queueInfo.queueStatus == queueStatus.waitingForAgent"
+                                    (click)="confirmAcceptSession(session)" label="Accept" icon="pi pi-check"
+                                    styleClass="p-button-sm p-button-success"></p-button>
+
+                                    <p-button *ngIf="session.queueInfo.queueStatus == queueStatus.callDisconnected"
+                                    (click)="confirmAcceptSession(session)" label="Rejoin" icon="pi pi-check"
+                                    styleClass="p-button-sm p-button-success"></p-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <ngx-spinner bdColor="rgba(255,255,255,0.8)" size="medium" color="#00ff08" type="ball-elastic-dots"
+        [fullScreen]="true">
+        <p class="text-primary">{{acceptedCallLoadingText}}</p>
+    </ngx-spinner>
+
+</agent-layout>

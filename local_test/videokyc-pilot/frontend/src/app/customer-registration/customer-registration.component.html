@@ -1,0 +1,286 @@
+<section class="section">
+    <p-toast></p-toast>
+    <div class="container mt-2" *ngIf="!isLookupDone">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                <div class="login-brand">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="assets/img/botaiml-logo.png" alt="logo" width="100"
+                                class="shadow-light rounded-circle">
+                        </div>
+                        <div class="col-9 mt-3 header-text">
+                            Welcome to Video KYC
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!isLookupDone" class="card card-primary">
+                    <div class="card-header">
+                        <h4>Registration</h4>
+                    </div>
+
+                    <div class="card-body">
+
+                        <form [formGroup]="panLookUpForm">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="pan" class="col-sm-2 col-form-label">PAN Number</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" placeholder="Enter your PAN Number" class="form-control"
+                                            formControlName="pan" id="pan" autofocus
+                                            [ngClass]="{ 'is-invalid': pf.pan.invalid && (pf.pan.touched || pf.pan.dirty) }">
+                                        <div *ngIf="pf.pan.invalid && pf.pan.errors?.required && (pf.pan.touched || pf.pan.dirty)"
+                                            class="invalid-feedback">
+                                            PAN Number is required field
+                                        </div>
+                                        <div *ngIf="pf.pan.invalid && pf.pan.errors?.pattern && (pf.pan.touched || pf.pan.dirty)"
+                                            class="invalid-feedback">
+                                            Please enter a valid PAN Number </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" (click)="panNumberLookup()"
+                                    class="btn btn-primary btn-lg btn-block">
+                                    Continue
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2" *ngIf="isLookupDone && !isRegisteredCustomer">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                <div class="login-brand">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="assets/img/botaiml-logo.png" alt="logo" width="100"
+                                class="shadow-light rounded-circle">
+                        </div>
+                        <div class="col-9 mt-3 header-text">
+                            Welcome to Video KYC
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>Registration - {{customerPAN}}</h4>
+                    </div>
+
+                    <div *ngIf="hasOfflineAadharReady == true" class="card-body">
+                        <form [formGroup]="registrationForm">
+                            <div *ngIf="hafFormPageError()" class="alert alert-danger">
+                                <b>Error : </b> {{apiResponse.error}}
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-12">
+                                    <p-fileUpload #fileUploadControl name="uploadedFiles[]" [customUpload]="true"
+                                        [multiple]="false" [showUploadButton]="false" [showCancelButton]="false"
+                                        [chooseLabel]="'Choose Aadhar XML zip file'" accept=".zip"
+                                        (onSelect)="onFileSelect($event, fileUploadControl)">
+                                        <ng-template pTemplate="toolbar">
+                                        </ng-template>
+                                        <ng-template let-file pTemplate="file">
+                                            <div class="text-center" *ngIf="fileDetailText.length != 0">
+                                                <p class="text-primary">
+                                                    <i class="fa fa-check text-success"></i>
+                                                    {{fileDetailText}}
+                                                </p>
+                                            </div>
+                                        </ng-template>
+                                    </p-fileUpload>
+
+                                    <div *ngIf="isSubmited && !validFile" class="invalid-file">
+                                        Please upload aadhar zip file.
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label for="passPhrase">Passcode</label>
+                                    <input type="password" placeholder="Enter the Passcode"
+                                        class="form-control phone-number" formControlName="passPhrase" id="passPhrase"
+                                        [ngClass]="{ 'is-invalid': cf.passPhrase.invalid && (cf.passPhrase.touched || cf.passPhrase.dirty) }">
+                                    <div *ngIf="cf.passPhrase.invalid && cf.passPhrase.errors?.required && (cf.passPhrase.touched || cf.passPhrase.dirty)"
+                                        class="invalid-feedback">
+                                        Passcode is required field
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" placeholder="xxxxxxxxxx" class="form-control phone-number"
+                                        formControlName="phone" id="phone"
+                                        [ngClass]="{ 'is-invalid': cf.phone.invalid && (cf.phone.touched || cf.phone.dirty) }">
+                                    <div *ngIf="cf.phone.invalid && cf.phone.errors?.required && (cf.phone.touched || cf.phone.dirty)"
+                                        class="invalid-feedback">
+                                        Phone Number is required field
+                                    </div>
+                                    <div *ngIf="cf.phone.invalid && cf.phone.errors?.pattern && (cf.phone.touched || cf.phone.dirty)"
+                                        class="invalid-feedback">
+                                        Please enter a valid 10 Digit Mobile Number </div>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label for="email">Email</label>
+                                    <input type="email" placeholder="Enter your email" class="form-control"
+                                        formControlName="email" id="email"
+                                        [ngClass]="{ 'is-invalid': cf.email.invalid && (cf.email.touched || cf.email.dirty) }">
+
+                                    <div *ngIf="cf.email.invalid && cf.email.errors?.required && (cf.email.touched || cf.email.dirty)"
+                                        class="invalid-feedback">
+                                        Email is required field
+                                    </div>
+
+                                    <div *ngIf="cf.email.invalid && cf.email.errors?.email && (cf.email.touched || cf.email.dirty)"
+                                        class="invalid-feedback">
+                                        Please enter a valid email id
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <p-checkbox [binary]="true" formControlName="consent" inputId="binary"
+                                        [label]="aadharXmlUploadConsent">
+                                    </p-checkbox>
+                                    <div *ngIf="(cf.consent.invalid && cf.consent.errors?.required || registrationForm.value.consent == false) && (cf.consent.touched || cf.consent.dirty)"
+                                        class="is-invalid">
+                                        Please accept the consent
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <button type="button" (click)="registerNewCustomer()"
+                                    class="btn btn-primary btn-lg btn-block">
+                                    Register
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div *ngIf="showAadharCheckContent == true" class="card-body">
+                        <div class="card-body text-center">
+                            <span class="text-primary">Do you have the Aadhar XML zip file?</span>
+                            <div class="buttons mt-2">
+                                <button (click)="onHasOfflineAadharReady()" type="button"
+                                    class="btn btn-primary">Yes</button>
+                                <button (click)="onNoOfflineAadharReady()" type="button"
+                                    class="btn btn-warning">No</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="hasOfflineAadharReady == false" class="card-body">
+                        <div class="card-body">
+                            <h3 class="text-primary">Steps to download Aadhar XML</h3>
+                            <li>
+                                Go to <a target="_blank"
+                                    href="https://resident.uidai.gov.in/offline-kyc">https://resident.uidai.gov.in/offline-kyc</a>
+                            </li>
+                            <li>
+                                Enter your Aadhar Number
+                            </li>
+                            <li>
+                                Enter OTP sent to your mobile/email
+                            </li>
+                            <li>
+                                Choose a passcode for Zip File
+                            </li>
+                            <li>
+                                Download the zip file containing the Aadhar XML
+                            </li>
+
+                            <br>
+                            <div class="buttons">
+                                <button type="button" (click)="onHasOfflineAadharReady()" class="btn btn-primary">I have
+                                    downloaded Aadhar XML</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2" *ngIf="isLookupDone && isRegistrationSuccess && isNewlyRegistered">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>Registered successfully</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-success alert-has-icon">
+                            <div style="margin-top:0px" class="alert-icon"><i class="fas fa-check"></i></div>
+                            <div class="alert-body">
+                                <p>You are registered successfully to VKYC. Please check your email for the link to join
+                                    the
+                                    Video KYC.
+                                </p>
+                                <button (click)="redirectsToJoin()" pButton pRipple type="button" label="Start VKYC"
+                                    class="p-button-text p-button-plain"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2" *ngIf="isLookupDone && isRegisteredCustomer && isKycDone() && !isRegistrationSuccess">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>KYC Status</h4>
+                    </div>
+                    <div class="card-body">
+                        <div [className]="getCssBasedOnKYC()">
+                            <div style="margin-top:0px" class="alert-icon"><i class="fas fa-info"></i></div>
+                            <div class="alert-body">
+                                <p *ngIf="customerKycStatus == KycStatus.accepted">Your KYC has been completed
+                                    successfully.
+                                </p>
+                                <p *ngIf="customerKycStatus == KycStatus.toBeAudited">Your KYC has been completed
+                                    successfully. Waiting for the approval.</p>
+                                <p *ngIf="customerKycStatus == KycStatus.rejected">Your KYC has been rejected by the
+                                    Agent</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2" *ngIf="isLookupDone && isRegisteredCustomer && !isKycDone() && !isRegistrationSuccess">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>KYC Status</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info alert-has-icon">
+                            <div style="margin-top:0px" class="alert-icon"><i class="fas fa-check"></i></div>
+                            <div class="alert-body">
+                                <p> You are already registered for KYC. Please join the link sent in Email to join the
+                                    Video KYC.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="line-scale-party" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+</section>

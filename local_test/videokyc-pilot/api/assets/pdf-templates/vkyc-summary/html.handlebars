@@ -1,0 +1,316 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/template-styles.css">
+    <link rel="stylesheet" href="css/test.css">
+</head>
+
+<body>
+    <div class="main-wrapper main-wrapper-1">
+        <div class="main-content" style="min-height: 348px;">
+            <section class="section">
+                <div class="section-body ">
+                    <h4 class="text-center">Video KYC Report</h4>
+                    <hr class="bg-primary border-2 border-top border-primary">
+
+                    <div class="rows-container">
+                        <div class="row">
+                            <div class="col" style="width: 50%; ">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>{{customerName}} / {{customerPAN}} </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <table style="width: 100%;">
+                                            <colgroup>
+                                                <td style="width: 50%;"></td>
+                                                <td style="width: 25%;"></td>
+                                                <td style="width: 25%;"></td>
+                                            </colgroup>
+
+                                            <tr>
+                                                <td style="vertical-align: center;">
+                                                    <div class="profile-widget-header">
+                                                        <img width="80%" height="80%"
+                                                            class="rounded-circle profile-widget-picture "
+                                                            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCADIAKADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0g0devNLQBXAdAhFI3SnYoIytADAfmPvSkYxzikz83APpSyEDaT60AJ3NN3AgntWXqniDT9Li33lzHACSAHzluD0xXIXnxU05ADa2k07EfdYBPp6/1+lNRbFc9D3DGQRjsaC2K8kvPixdO5+zWUcI/hLnzMH3GBn9O9Z03xT1p596ska5/wBWI1KgYxxkZ9+SapU2HMe2d+tGa8V/4WFc3AilP2k3CjDFbuRFb3KghR06gHr0rQsfijfQXCR3UCzW6jazljuJ9cgDA/4D+VHIxcx61mjNZWi+INO162E1lcK7D78efmQ/Trj39x0PFaoGamxQhopTSUgEwaMUtGKAGEUw1I3AzURoAvGkFKe1NU80AONJ2IpSaiYgISeSM4FAEEtwsblSfm27uCBj8+P/ANRrEXxJ9oD+TEZTvwrhflbnGV5zt4HPQ564qprVy73Edosi5mLM6ngkArhfXBypPbAx35ztW1O20yxgiWR96RhI4v4owuACeucjPOeo4OelJCPOfGN7d3Wtv58jMF3bGIIBBdmHXrgELkcYUDtWHcXY3FUxtycYGAPz9sVP4j1P7dqsjrt2jgFen/1/T6CsRpMtnP4VukQyzJMWyR+dVWdt2eT70FsngcUioZOpwKoRYt5D6kYqRJS0hR2JPrmqkZ2SY7dKnMKnBzmpA0tK1q+0O9W6spmimXjOAQR6EHgjivY/DHxJ0zVljtr8/YrtsBS7Zjc+zfwnj+L1ABJrwg4x94596kik2gg80nFMadj6rz6ikrxLwv8AE2/0xIbPUD9rtVYBXkOJI1PUbsfMB1APPbOMY9e07Uk1GzhuUGBIgbGQev8AnrWTi0UncvUZpuadmpKEfpUTGpHzioWPBoEaB6VGp+apM8VD0agZPVactsITG7rU4Pqa5/xPqzaVpzyRzpFI3R3BYKB1OB19h6nrQlcDkvFms22my+e4eR1UwRDjkFQxbrnGQg/PrxXmep+JLzUEEckmIlXaFXjPA6nv0FR65qkmpajJLLKz5J27jnj/AD2rH2mSQDnmt0rIi+omC7ZHJNKtlKxzitS3tFVRx+NX4rUdcGsZV+XY2hRvqzAGnyk8gAetAi8tSmctnrXS/ZNwwM1hX0L2zs+049TRCs5uw6lFRWhTeAhx6daST5Tz+FOjmDsFI6U+eF0UHG5T0NbX7mCRW3H1pd3GSKjyPSnKR1PSqETRg+ldn4J8Q3OiXhOZGtCQZoxzwM89DjqTxjPc1xatk8ck13XhLWbKCW3F5aQkwyK6yEAEEHOTnjjqCepwPpL2BHuCSBlBGPqKfmqFhfwXttHNbSq8LKNrD+XrkdDnoeOoNXM5rJotDmPy1WZs1YJ+WqbthiKEJmnv4pjGot/PWkLc00h3JjKqIWPQV4T428ST63q1xGlwWsoZCsKqx2tjjdjv359/evQPH/iM6LopigfF1chkTr8gx8zD3GQB7kcEZrwh53kZj61cY9SWxJJCTu7g881Ysv3h3EdDgVUVRJxWzZwqkQwKKjtEqlG8i3COlX1lAGCaooMmrcMBYjjivPmd8UX4dhXqM06XTre6iKMAc0iWsgGQCakXfHgE4qOaxTjcwpfCMZLNFMyHt3FRJo17bjaXiZO/HJro3mOcdzTHWWRRlUUew/xrT289iPYxMX+y7YAGSNc98VWn0y1xlEArbltmA5qlJEVOKmNSV9xuEbbHL3lt9nlAp0VxIDkNjcNp46itHUoQYtxA4rJ+8QBjavrXoU5c0dThqR5ZaHtXwvhLaZdXXnhld1URDnaQOWOe546entXfA1wfwuiMfhWSQsD5lyxGOoXaowfxB/Ou6Dc0nuQh5+7VOX79W2PFUZ25oQMmL804v8vbFQt9/GaXPynNVYVzyD4pTSN4giTon2YYGeuC3b8TXniE4Oa9D+J6Aa9bSFwzeQF2D+EBm/nmuDZEcbgdozirWxIkYA59TwK2YAEiG49qo2NqZ3EjE7F4ArQa2lkf5cKo7tWFWSZ0Uk1qSx3CLyRx71cTVbWEgu+T6KM1n/YIif31y5PcCmyafZcfZ597nsJBn+dY2gzW80dHZ69ZykJgrnua1Alvcw5U/N2AHeuDjiML4UMMetb2k3JXCluB3NZVIpbGkJS6m6lpFGDJI4aQ8k5rLvdYt7QHjcQegq3dyxtDlHIOBxmuWuE8yUs4zUU7N6lz5rE7eJA+5fIwDz16UHUo5BlQcH17VDDZWQOZ3VD6EEVOdOseqEZ9Vat37NdDFc99yG5AntXKc8VhqQyEBMHOCfWugis3gkyrb4jwR3rCukNtfyIvXPArai10M6192e4/D6OFPBlkYgMs0hfAxlvMYHPvxj6AV1QPPWuU+HqBPBljjGWMjHjknzGrqhWj3MEOY/LVC5b58VdP3az7o/OKEDLDkBxS5+TrTJDkjNKCNtUSePfElJB4hDMCEaJQp9ev9TXC+WzzKg456V7J8QNHN/pYuI1JltSXwO6H73f2B/DHevKLOPzL+MejVTegLc3bS3WGAKB0qK5aQ5CA59KunOMCmeUSa4Zy11O+CKENos9nLHOree/CN1VPw/rU+m2Ui3trJqEMBtoBkpFGm5vmdgDnHBLkH2AHYYuLBz0/OnyRErtySf7vakq72QOgt2UbkwremW2jKRHOYycgfSmI7K2V4+lTyQKpwarv98bRxU35i0rFnzXZcZpsYiM6/aA/ljqEOCafCjFPu0/yw2M9ahOzLauihqVszvdNaWVsYpl2qXA3pyhyvPX5CM+jN3OaV7QQ6fCIlP2rlpNgITkk45x045Fa0cAXAOVz37GntbY9PwrR4h2SMlQV7lDT5JBhZAR9az/EECpfRSqPvDn3rdEOCMDpWX4hQlbZlGTyD+lXRl710TWXunqngGQSeEbIBlym9WAPQ7ieffBFdQD61keH7O3sNFtIbaPYhjDHknJIyTk8n/PStUH2rqZxLYex4rOujV9+lZ10fvUIGy1Kfemg4U0sh45pgYbTVEnnvjrUb4arHaQyyLbfZwzKjlckswOcdeAOtcLHCttqK9eeea7jxcxfW9rKAfKUIfUZJ/nmuTv7RlmEi8hRk1hKdp2Z1KmvZpovKwxUyKrAZNUopMrU8b4IrGrE2pM0AFCcAA461A2Bn1pn2nI4ppkbafm5NYpG1yrcZLBRyzdBUccaxzATSKSegFLMrswdCNw9TVKPT7eS63sWaXHdsgGtYpWIbdzrYxZJZrlWL9+e1ZjkSvujwVHWqPlzmFo5pSI8YJB5qPT7V7ZtsTs8Td2bNZKCV3crmvY3IwdoB5q3CqgEMBjtVGOTAwe3Sp1kxkZFZM0FnCKxKCsjWAGjgyMnfkDpWhJKM9arlQ9wJXPyoMAdvc1tR91XMai5tD07wtezal4ds7q5AEzqwbC4B2sVzj32544544rbHWuc8G4HheyAxjMh+n7xq6LPzck8V6C1Vzz5K0mhZOlZlyclq0nPFZVw3LCqSJZfccd6hXOCKnb7tQj7xqiTifGdiS0V6g5j+Rz7H7v65/76rjH+0BWaNg4HUN6V63qECTRsjqGVxhge4rzvU9LeyuCEWSSE9CFzj2OKxqwvqjpo1LLlZiQZCjjFSlvSo45o5J50jBAQ4INDH3rOautTSLsyQMQKGlCJljzURJVOOTUEx2oXILn6dKyUNTVy0JDI0hKqD+FS21uySZJAP1rIF3M33RtFXEN3j+A5GeGFacliFLmZqToZF2nCcdc5zVSISWwOR8pPaoALt1yNqjp61WeS6QE8HHpU8nS5o9NbG2k6uOOtTq+R1rFs5nkXc6FTnqRwa0YWLRZ/OspU7Ow4zuWAfmzUKR3Mh8n70kpCoi9SSeB+tSxIz/KiPIx6KilmP0ArrfCmklJpb65hkSVBsjEsZXGRywz7HGR79e2sIXsjOU+W7Oo0m0XT7CC0TBESBSQMbm7nHucn8a0cZ71BF9KnFdbOK99xJOVyKypzy1aj4APNZU3VhTiSzSJyDVcnD1NnioH+9VpCGT8j2rEv7YOjcVuPytUbiMEHipaA8wvLD7JfyzDhZPvfWqrNzXR+JIfLQn1auV83LbTwf51jJXN6bsPZznmnLgjr1qJmpBuHIrJo3Q7y03/dGc1ZS9kt4jGgTB68Dmo413HPqanFpuIz+lQ5MtLsN/tOUDbsUKaaWExywFTmyxxTTBsxipcuxa8xMAJinIwAxUTHvSowxRFXE9DqfCdkZ757g8JEvH1PH8s13SjC4rkvCOrae0SaaJFjvDl9jcebz1HYnAHHXgnGK7BRXXBWRxVHdj4z0qwpzUEfaplwK0ZkJKfkPWsqVsn3rTlPyH6VlOfmNNIGaeaikp/v/Wo5eRViE6rVS7ljt4JJpWCRxqWZj0AAyTVodOK4b4kak1vpUNkpINy5LEDgqmCR9clT+BosC10OR1HxFJrOsyBQY7VQfKj79uT7/wAv1NSVN4461kWj7b9T6gittMNXPV0Z0010Knnsh2v+dWIpge/FLNbq61msJYG+Ukis9JF6xNuNtrZHSr0FzGOW5NcymolSAwpx1DPes3TkaKpE6o3cbjHFV5JUx1Fc5/aB9aFvmY4XJNT7KQ/aRNiaRVBJNQiQuOnFVYo5JiC5OPSroj2rT0joHxGbqmVEMgPKnGf1Fd74J8ctdPHpWrS7pW+WC5c8seysfXsD39ycnhdTG60b2wayEbnPWuuk7xOeotT6VUj1qVTxXHeEPFMOqaPCt3LtvI/3cjPwHIBIOfUqM/gx6CutRwyhlIIIyCO9WYWsLMcIay5DzmtGc/ujWXK1NCZqKR+NMkPy0x5khQs7BVHc1i6hqN3NhbSZIIzkFmj3M3pjJwO/Y1TdhGo93BAyLLKiNISEVmwWxycDvXkvj3U01DW9sT5jhj8v23ZOf6D8K7BnksLG/uZZ3uJo4mkzIFB4UkDgD0rzHVTi78vc5ZEUPvPzCTAMgP8AwMvSvcuC1KEZ2Tqx9etbkL8AisI81pWM+9NpPzCsayurm8NzYXDCqdzDhuR+NTRN0p8w3JzXLszZq6M77Ikp9D60v9j55zUqZDGrKzkDBBpuUlsJRTKI0pUPNSraqnCirTOWxnNA+lS5ye5SgkLCioPenueDSqoAprNUX1LsUL0Zt3B7rWGh4FbV8d0MncBSTWIh+UYrtobHNU3NHTtQksJTJGFYEYeN87XXOcHGD1APBBBAIIIBHoGi6zJi3aK48mO6lPl3G0fPIBzFNjgyDgq3G4Y4ByB5irYre8OXUclzJpV1IsdrqGIzIw/1Uoz5cnthjg8/dZs1s0ZtaHqy61ciIRXCxSSZAYjKcZ5OOcn24qT7QkqhhlfZv84rnrO4ku9M33AKX1q5t7tSckOvBJ/z3x2q/BIzx5BIIHXipu0ZtEk91NPKC+TzwOwpCNsckzDEcSl2c9FAGSSfpWM3iG0MyQaak1/dTcQr5flpu/2s4Jx17DA5YdawNW1dYlMja217eIymOGBCYInUjDZOFOB02r17kU9xJGxcaqup2GqWzWz2cggLMGfdmPu3IHbPb6V55czSz3MssxJldizk9Sx6/rWrbeKL43Hk6jdSXFnMCkyucnawwcHGR17elZ2qRvFqU4cgsW3FlHBJ5OPbmqSsXHQq5FOjkMMoYVH+NJnOKGrotG9BMHUHNXkbcMGuds7gqwjY8Z4rWhm7HqK4qkLM3jImeEbsilCCpQ25aZkg1k2aWQuyhVwRmjcTThwM1JQM/GKjwXOBTlRpWYL/AAjLE9FGQMn2yRS3EiBRBATswC7MAC5/oOemecZPYBpCbMzU3UWzqhBA4LY+8f8AD/PesYdK09UcCJUHUmswGu6kvdOWW47NKDmmZ/GlLHPetST0yy1PfeafrLNui1aMWt6SOl1GNoJ9NwwQP9omrE+o65b6rPaabo8EkSj5WlQlX753llHccZ6g9a5Tw2/2/Qtb0g53+SL2A/3XjPzY92UkfhV/xVLcar4UsNTjnfy8bbiJWIQnOM4zjhgR3PI9KlrUho5+fxJfTwzW8Qt7SCcYljtYVj3j3PU/nWS3Q88miirGRtjNWplkextrhsbcvCPU7cH+TgfhRRQBBxik79qKKQxOh960rWbz0KH/AFign8PWiiomk0XF6m3b21yIw7QSiMtgOYyAc9OfxH51IYsFskKQQuG+XJ9s9eo/OiiuNxTZ0Q1HCDqepHYA/wA+lSvDGJGGC8e0bSflO7uCOcj8R/SiiskPoVpGCR7R0HIHv6/Xms2aUqrPgnHOKKK0gtRS2MOad55Cz/hTc0UV3pJKxy3uFBoopiOi8D3It/GGnMclXdoiB33qV/8AZq0o08nwPrNnK3/Hvc7Bznoy/wBQaKKTF1P/2Q==">
+                                                    </div>
+                                                </td>
+
+                                                <td style=" vertical-align: center;">
+                                                    <div class="profile-widget-item">
+                                                        <div class="profile-widget-item-label">KYC Status</div>
+                                                        <div class="profile-widget-item-value text-primary">
+                                                            {{ kycStatus}}
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td style=" vertical-align: center;">
+                                                    <div class="profile-widget-item">
+                                                        <div class="profile-widget-item-label">VKYC On</div>
+                                                        <div class="profile-widget-item-value text-primary">
+                                                            {{ kycDoneOn}}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card card-primary">
+                                    <div class="card-body ">
+                                        <div class="col-md-6">
+                                            <address><strong>Aadhar Address</strong><br> {{customerAadharAddress}}
+                                            </address>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="rows-container">
+                        <div class="row">
+
+                            {{#if activityState.hasIpVerification}}
+                            <div class="col" style="width: 50%;">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h4>IP Address Information</h4>
+                                        <div class="card-header-action"><i class="fa fa-check text-success "></i> </div>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div>
+                                            <dl class="row">
+                                                <dt class="col-sm-3">IP Address</dt>
+                                                <dd class="col-sm-9">
+                                                    {{activityData.ipVerification.ip}}</dd>
+                                                <dt class="col-sm-3">Est. Lat/Lng</dt>
+                                                <dd class="col-sm-9">
+                                                    {{activityData.ipVerification.latitude}},
+                                                    {{activityData.ipVerification.longitude}}</dd>
+                                                <dt class="col-sm-3">Internet Provider</dt>
+                                                <dd class="col-sm-9">
+                                                    {{activityData.ipVerification.internetProvider}}
+                                                </dd>
+                                                <dt class="col-sm-3">City</dt>
+                                                <dd class="col-sm-9">
+                                                    {{activityData.ipVerification.city}}</dd>
+                                                <dt class="col-sm-3">Country</dt>
+                                                <dd class="col-sm-9">
+                                                    {{activityData.ipVerification.country}}
+                                                </dd>
+                                                <dt class="col-sm-3">Threat Assessment</dt>
+                                                <dd class="col-sm-9">
+                                                    <div class="text-dark "> No Threats Found. The client's IP Address
+                                                        seems
+                                                        to be clean. </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{else}}
+                            {{!-- do nothing --}}
+                            {{/if}}
+
+                            {{#if activityState.hasGeolocationVerification}}
+                            <div class="col">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h4>Geo Location Information</h4>
+                                        <div class="card-header-action"><i class="fa fa-check text-success "></i> </div>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div class="col-md-6">
+                                            <address><strong>Address</strong><br>
+                                                {{activityData.geolocationVerification.formatted_address}}
+                                            </address>
+                                            <address><strong>Est. Lat/Lng</strong><br>
+                                                {{activityData.geolocationVerification.lat}},
+                                                {{activityData.geolocationVerification.lng}}
+                                            </address>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{else}}
+                            {{!-- do nothing --}}
+                            {{/if}}
+
+                        </div>
+                    </div>
+
+
+                    {{#if activityState.hasRandomQuestions}}
+                    <div class="rows-container">
+                        <div class="row">
+                            <div class="col-12 ">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h4>Random Questions</h4>
+                                        <div class="card-header-action"><i class="fa fa-check text-success "></i> </div>
+                                    </div>
+                                    <div class="card-body ">
+
+                                        {{#each activityData.randomQuestions}}
+                                        <p class=""> Q{{index}} : <b>{{question}}</b><br><i
+                                                class="fa fa-check text-success "></i> Ans : {{expectedAnswer}} </p>
+                                        {{/each}}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                    {{!-- do nothing --}}
+                    {{/if}}
+
+                    <div class="rows-container">
+                        <div class="row">
+
+                            {{#if activityState.hasFaceRecognition}}
+                            <div class="col" style="width: 50%;">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h4>Face Recognition </h4>
+                                        <div class="card-header-action">
+                                            {{activityData.faceRecognition.matchingPercentage}} &nbsp; <i
+                                                class="fa fa-check text-success "></i> </div>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col" style="width: 41%;">
+                                                <figure class="figure">
+                                                    <img alt="Face Image" class="figure-img img-fluid rounded"
+                                                        src="{{activityData.faceRecognition.aadharImageBase64}}">
+                                                    <figcaption class="figure-caption">Aadhar Image </figcaption>
+                                                </figure>
+
+                                            </div>
+                                            <div class="col">
+                                                <figure class="figure">
+                                                    <img alt="Face Image" class="figure-img img-fluid rounded"
+                                                        src="{{activityData.faceRecognition.liveImageBase64}}">
+                                                    <figcaption class="figure-caption">Live Image </figcaption>
+                                                </figure>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{else}}
+                            {{!-- do nothing --}}
+                            {{/if}}
+
+
+                            {{#if activityState.hasCustomerSignature}}
+
+                            <div class="col">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h4>Customer Signature</h4>
+                                        <div class="card-header-action"><i class="fa fa-check text-success "></i> </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <figure class="figure"><img alt="Signature" class="figure-img img-fluid rounded"
+                                                src="{{activityData.customerSignature.signatureBase64}}">
+                                            <figcaption class="figure-caption">Signature</figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{else}}
+                            {{!-- do nothing --}}
+                            {{/if}}
+
+                        </div>
+                    </div>
+
+                    {{#if activityState.hasPanCapture}}
+                    <div class="rows-container">
+                        <div class="row">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h4>PAN Information </h4>
+                                </div>
+                                <div class="card-body">
+                                    <table style="width: 100%;">
+                                        <colgroup>
+                                            <td style="width: 50%;"></td>
+                                            <td style="width: 50%;"></td>
+                                        </colgroup>
+
+                                        <tr>
+                                            <td>
+                                                <figure class="figure">
+                                                    <img alt="Face Image" class="figure-img img-fluid rounded"
+                                                        src="data:image/jpeg;base64,{{activityData.panCapture.panImageBase64}}">
+                                                    <figcaption class="figure-caption">PAN Image </figcaption>
+                                                </figure>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <div class="alert alert-light">
+                                                        {{activityData.panCapture.panNumber}} <br>
+                                                        {{activityData.panCapture.name}}
+                                                        <br>
+                                                        S/O
+                                                        {{activityData.panCapture.fatherName}} <br>
+                                                        {{activityData.panCapture.dob}}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <figure class="figure"><img alt="Face Image"
+                                                            class="figure-img img-fluid rounded"
+                                                            src="data:image/jpeg;base64,{{activityData.panCapture.faceImageBase64}}">
+                                                        <figcaption class="figure-caption">Face Image </figcaption>
+                                                </div>
+                                                <div>
+                                                    <figure class="figure"><img alt="Face Image"
+                                                            class="figure-img img-fluid rounded"
+                                                            src="data:image/jpeg;base64,{{activityData.panCapture.signatureBase64}}">
+                                                        <figcaption class="figure-caption">Signature Image </figcaption>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                    {{!-- do nothing --}}
+                    {{/if}}
+
+                    <div class="rows-container">
+                        <div class="row">
+                            <div class="col" style="width: 33%">
+                                <h6>Powered by</h6> <img alt="Signature" class="figure-img img-fluid rounded"
+                                    src="data:image/jpeg;base64, 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">
+                            </div>
+                            <div class="col" style="width: 33%">
+                                <i class="fas fa-envelope"></i> <a href="mailto:sales@botaiml.com">sales@botaiml.com</a>
+                            </div>
+                            <div class="col">
+                                <i class="fas fa-phone"></i> +91-80-22250073/ 22257027/
+                                22284587
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </section>
+    </div>
+    </div>
+</body>
+
+</html>

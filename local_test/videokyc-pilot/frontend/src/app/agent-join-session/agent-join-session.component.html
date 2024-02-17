@@ -1,0 +1,105 @@
+<div *ngIf="canShowWebComponent()" style="width: 100vw; height: 100vh">
+  <!-- <videoflo-component [sessionId]="agentJoinLinkInfo.sessionId" [participantId]="agentJoinLinkInfo.agentPId"
+        [apiUrl]="agentJoinLinkInfo.videofloEndpoint" [token]="videoFloAccessToken" (error)="onVideofloError($event)"
+        (leaveSession)="onVideofloLeaveSession($event)">
+    </videoflo-component> -->
+  <videoflo-webcomponent
+    [sessionId]="agentJoinLinkInfo.sessionId"
+    [participantId]="agentJoinLinkInfo.agentPId"
+    [apiUrl]="agentJoinLinkInfo.videofloEndpoint"
+    [token]="videoFloAccessToken"
+    (error)="onVideofloError($event)"
+    (leaveSession)="onVideofloLeaveSession($event)"
+  >
+  </videoflo-webcomponent>
+</div>
+
+<section class="section" *ngIf="!callInProgress">
+  <p-toast></p-toast>
+  <div class="section-body" *ngIf="loading">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-center">
+          <h2 class="text-info">Please hold on! Connecting the call...</h2>
+          <p-progressSpinner
+            [style]="{ width: '50px', height: '50px' }"
+            styleClass="custom-spinner"
+            strokeWidth="8"
+            fill="#EEEEEE"
+            animationDuration=".5s"
+          ></p-progressSpinner>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="section-body"
+    *ngIf="
+      loading == false && !isValidSession && agentJoinLinkInfo === undefined
+    "
+  >
+    <div class="card">
+      <div class="card-body">
+        <div class="text-center">
+          <h2 class="text-danger">
+            Your VKYC link has expired. Kindly re-register yourself to initiate
+            VKYC.
+          </h2>
+          <button
+            (click)="redirectToHome()"
+            pButton
+            pRipple
+            type="button"
+            label="Go to Home Page"
+            class="p-button-text p-button-plain"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" *ngIf="callFinished && loading == false">
+  <div class="section-body">
+    <div class="card">
+      <div class="card-header">
+        <h4>Video KYC Session Completed</h4>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-success alert-has-icon">
+          <div style="margin-top: 0px" class="alert-icon">
+            <i class="fas fa-check"></i>
+          </div>
+          <div class="alert-body">
+            <p>Customer VKYC has been successfully completed.</p>
+          </div>
+        </div>
+        <a [routerLink]="['/', AppURL.QueueBoard]" class="card-link"
+          >Go to Dashboard Page</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" *ngIf="!loading && hasVideoFloError">
+  <div class="container mt-2">
+    <div class="row">
+      <div
+        class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2"
+      >
+        <div class="card card-primary">
+          <div class="card-body">
+            <div class="text-center">
+              <h2 class="text-danger">
+                Error occured while processing your request. Please try after
+                sometime
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

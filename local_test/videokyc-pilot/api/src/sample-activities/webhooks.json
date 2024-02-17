@@ -1,0 +1,7 @@
+{
+    "onParticipantConnected": "http://localhost:3000/webhooks/onParticipantConnected",
+    "onParticipantDisconnected": "http://localhost:3000/webhooks/onParticipantDisconnected",
+    "onWorkflowFinished": "http://localhost:3000/webhooks/onWorkflowFinished",
+    "onRecordingAvailable": "http://localhost:3000/webhooks/onRecordingAvailable",
+    "onRecordingError": "http://localhost:3000/webhooks/onRecordingError"
+}

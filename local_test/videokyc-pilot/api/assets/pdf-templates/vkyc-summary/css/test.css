@@ -1,0 +1,99 @@
+.rows-container {
+  display: table;
+}
+
+.row {
+  display: table-row;
+}
+
+.col,
+.col-auto,
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+  display: table-cell;
+  width: auto;
+  max-width: 100%;
+}
+.col-1 {
+  min-width: 8.333333%;
+  max-width: 8.333333%;
+}
+.col-2 {
+  min-width: 16.666667%;
+  max-width: 16.666667%;
+}
+.col-3 {
+  min-width: 25%;
+  max-width: 25%;
+}
+.col-4 {
+  min-width: 33.333333%;
+  max-width: 33.333333%;
+}
+.col-5 {
+  min-width: 41.666667%;
+  max-width: 41.666667%;
+}
+.col-6 {
+  min-width: 50%;
+  max-width: 50%;
+}
+.col-7 {
+  min-width: 58.333333%;
+  max-width: 58.333333%;
+}
+.col-8 {
+  min-width: 66.666667%;
+  max-width: 66.666667%;
+}
+.col-9 {
+  min-width: 75%;
+  max-width: 75%;
+}
+.col-10 {
+  min-width: 83.333333%;
+  max-width: 83.333333%;
+}
+.col-11 {
+  min-width: 91.666667%;
+  max-width: 91.666667%;
+}
+.col-12 {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.rows-container {
+  width: 100%;
+  display: table;
+}
+
+.row {
+  display: table-row;
+  height: 100%;
+}
+
+.col {
+  display: table-cell;
+}
+
+td {
+  vertical-align: top;
+  padding: 4px;
+}
+
+.footer-div {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

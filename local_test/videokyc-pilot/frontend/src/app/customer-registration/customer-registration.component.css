@@ -1,0 +1,42 @@
+.header-text {
+  font-size: 0.9rem; /*1rem = 16px*/
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .header-text {
+    font-size: 1rem;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .header-text {
+    font-size: 1.25rem;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .header-text {
+    font-size: 1.5rem;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .header-text {
+    font-size: 1.5rem;
+  }
+}
+
+.p-fileupload-content {
+  padding: 0px !important;
+}
+
+.invalid-file {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}

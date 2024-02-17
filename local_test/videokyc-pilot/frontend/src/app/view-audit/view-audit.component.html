@@ -1,0 +1,326 @@
+<agent-layout>
+
+    <section class="section">
+        <div class="section-body" *ngIf="dto">
+            <p-dialog header="Accept KYC - {{dto.customerInfo.name}}" [(visible)]="showAcceptKycPopup" [modal]="true"
+                [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                <p class="p-m-0">Are you sure that you would like to Accept this KYC?</p>
+                <ng-template pTemplate="footer">
+                    <p-button icon="pi pi-times" label="Close" (click)="showAcceptKycPopup=false"
+                        styleClass="p-button-text">
+                    </p-button>
+                    <p-button icon="pi pi-check" label="Confirm" (click)="updateAudit(true)" styleClass="p-button-text">
+                    </p-button>
+                </ng-template>
+            </p-dialog>
+
+            <p-dialog header="Reject KYC - {{dto.customerInfo.name}}" [(visible)]="showRejectKycPopup" [modal]="true"
+                [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                <p class="p-m-0">Are you sure that you would like to Reject this KYC?</p>
+                <div class="p-fluid p-grid">
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="Reason">Reason</label>
+                        <textarea pInputTextarea [(ngModel)]="rejectionReason"></textarea>
+                    </div>
+                </div>
+                <ng-template pTemplate="footer">
+                    <p-button icon="pi pi-times" (click)="showRejectKycPopup=false" label="Close"
+                        styleClass="p-button-text">
+                    </p-button>
+                    <p-button [disabled]="rejectionReason.trim().length<=0" icon="pi pi-check"
+                        (click)="updateAudit(false)" label="Confirm" styleClass="p-button-text">
+                    </p-button>
+                </ng-template>
+            </p-dialog>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card profile-widget">
+                        <div class="profile-widget-header">
+                            <img *ngIf="dto.customerInfo.photo != null"
+                                src="data:image/jpeg;base64,{{dto.customerInfo.photo}}"
+                                class="rounded-circle profile-widget-picture" />
+                            <img *ngIf="dto.customerInfo.photo == null" alt="image" src="assets/img/avatar.png"
+                                class="rounded-circle profile-widget-picture">
+                            <div class="profile-widget-items">
+                                <div class="profile-widget-item">
+                                    <div class="profile-widget-item-label">KYC Status</div>
+                                    <div class="profile-widget-item-value {{KYC().css}}">{{KYC().status}}
+                                    </div>
+                                </div>
+                                <div class="profile-widget-item">
+                                    <div class="profile-widget-item-label">VKYC On</div>
+                                    <div class="profile-widget-item-value text-primary  ">
+                                        {{dto.queueInfo.customerConnectedTs | date}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-widget-description">
+                            <div class="row" *ngIf="dto.customerInfo.kycStatus == KycStatus.rejected">
+                                <div class="col-12">
+                                    <p class="text-danger">
+                                        <strong>Reason for rejection</strong><br>
+                                        {{dto.queueInfo.rejectReason == null ? 'Not available'
+                                        : dto.queueInfo.rejectReason}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="profile-widget-name">
+                                {{dto.customerInfo.name}}
+                                <div class="text-muted d-inline font-weight-normal">
+                                    <div class="slash"></div>
+                                    {{dto.customerInfo.panNumber}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <address>
+                                        <strong>Aadhar Address</strong><br>
+                                        {{address}}
+                                    </address>
+                                </div>
+
+                                <div class="col-4">
+                                    <!-- An empty seperation -->
+                                </div>
+
+                                <div *ngIf="dto.customerInfo.kycStatus == KycStatus.toBeAudited || dto.customerInfo.kycStatus == KycStatus.agentRejected"
+                                    class="col-4 text-right mt-5">
+                                    <button (click)="confirmAcceptKYC()" type="button"
+                                        class="btn btn-outline-success">Accept</button>
+                                    <button (click)="confirmRejectKYC()" type="button"
+                                        class="btn btn-outline-danger ml-2">Reject</button>
+                                </div>
+
+                                <div *ngIf="dto.customerInfo.kycStatus == KycStatus.rejected || dto.customerInfo.kycStatus == KycStatus.accepted"
+                                    class="col-4 text-right">
+                                    <dl>
+                                        <dt>Audited On</dt>
+                                        <dd class="text-primary">{{dto.queueInfo.auditedOn | date}}</dd>
+                                        <dt>Audited By</dt>
+                                        <dd class="text-primary"> {{dto.agentInfo.name}}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" *ngIf="hasActivity('faceRecognition')">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>Call Recording</h4>
+                        </div>
+                        <div class="card-body" *ngIf="getAgentDataByActivity('faceRecognition') != null">
+                            <app-video-player *ngIf="isRecordingAvailable()" src="{{getCallRecordingUrl()}}">
+                            </app-video-player>
+                            <p *ngIf="!isRecordingAvailable()" class="text-center"> Recording is not available yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4" *ngIf="hasActivity('panCapture')">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>PAN Information</h4>
+                            <div class="card-header-action">
+                                <i *ngIf="getAgentDataByActivity('panCapture').accepted"
+                                    class="fa fa-check text-success"></i>
+                                <i *ngIf="!getAgentDataByActivity('panCapture').accepted"
+                                    class="fa fa-times text-danger"></i>
+                            </div>
+                        </div>
+                        <div class="card-body" *ngIf="getAgentDataByActivity('panCapture') != null">
+                            <div class="row">
+                                <div class="col-4">
+                                    <figure class="figure">
+                                        <img src="data:image/jpeg;base64,{{panCaptureResult.result.pan_image}}"
+                                            class="figure-img img-fluid rounded" alt="Face Image">
+                                        <figcaption class="figure-caption">PAN Image</figcaption>
+                                    </figure>
+                                    <br>
+                                    <figure class="figure">
+                                        <img src="data:image/jpeg;base64,{{panCaptureResult.result.face_image}}"
+                                            class="figure-img img-fluid rounded" alt="Face Image">
+                                        <figcaption class="figure-caption">Face Image</figcaption>
+                                    </figure>
+                                </div>
+
+                                <div class="col-8">
+                                    <figure class="figure">
+                                        <img src="data:image/jpeg;base64,{{panCaptureResult.result.signature_image}}"
+                                            class="figure-img img-fluid rounded" alt="Face Image">
+                                        <figcaption class="figure-caption">Signature Image</figcaption>
+                                    </figure>
+                                    <br>
+                                    <div class="alert alert-light">
+                                        {{panCaptureResult.result.pan_num}}
+                                        <br>
+                                        {{panCaptureResult.result.name}}
+                                        <br>
+                                        S/O {{panCaptureResult.result.father_name}}
+                                        <br>
+                                        {{panCaptureResult.result.dob}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" *ngIf="hasActivity('faceRecognition')">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>Face Recognition</h4>
+                            <div class="card-header-action">
+                                {{faceRecognitionResult.faceMatchingResult.matchingPercentage}}%
+                                &nbsp;
+                                <i *ngIf="faceRecognitionResult.faceMatchingResult.isMatching"
+                                    class="fa fa-check text-success"></i>
+                                <i *ngIf="!faceRecognitionResult.faceMatchingResult.isMatching"
+                                    class="fa fa-times text-danger"></i>
+                            </div>
+                        </div>
+                        <div class="card-body" *ngIf="getAgentDataByActivity('faceRecognition') != null">
+                            <div class="row">
+                                <div class="col-5">
+                                    <figure class="figure">
+                                        <img src="{{faceRecognitionResult.image1.base64Image}}"
+                                            class="figure-img img-fluid rounded" alt="Face Image">
+                                        <figcaption class="figure-caption">Aadhar Image</figcaption>
+                                    </figure>
+                                </div>
+                                <div class="col-7">
+                                    <figure class="figure">
+                                        <img src="{{faceRecognitionResult.image2.base64Image}}"
+                                            class="figure-img img-fluid rounded" alt="Face Image">
+                                        <figcaption class="figure-caption">Live Image</figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" *ngIf="hasActivity('customerSignature')">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>Customer Signature</h4>
+                            <div class="card-header-action">
+                                <i *ngIf="getAgentDataByActivity('customerSignature').accepted"
+                                    class="fa fa-check text-success"></i>
+                                <i *ngIf="!getAgentDataByActivity('customerSignature').accepted"
+                                    class="fa fa-times text-danger"></i>
+                            </div>
+                        </div>
+                        <div class="card-body" *ngIf="getAgentDataByActivity('customerSignature') != null">
+                            <figure class="figure">
+                                <img src="{{customerSignatureResult.base64Image}}"
+                                    class="figure-img img-fluid rounded" alt="Signature">
+                                <figcaption class="figure-caption">Signature</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12" *ngIf="hasActivity('randomQuestions')">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>Random Questions</h4>
+                            <div class="card-header-action">
+                                <i *ngIf="getAgentDataByActivity('randomQuestions').accepted"
+                                    class="fa fa-check text-success"></i>
+                                <i *ngIf="!getAgentDataByActivity('randomQuestions').accepted"
+                                    class="fa fa-times text-danger"></i>
+                            </div>
+                        </div>
+                        <div class="card-body" *ngIf="getAgentDataByActivity('randomQuestions') != null">
+                            <p *ngFor="let item of getAgentDataByActivity('randomQuestions').payload; index as i">
+                                Q{{i+1}} : <b>{{item.question}}</b>
+                                <br>
+                                <i *ngIf="item.isAnswerCorrect" class="fa fa-check text-success"></i>
+                                <i *ngIf="!item.isAnswerCorrect" class="fa fa-times text-danger"></i>
+                                Ans : {{item.expectedAnswer}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" *ngIf="hasActivity('ipVerification')">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>IP Address Information</h4>
+                            <div class="card-header-action">
+                                <i *ngIf="getAgentDataByActivity('ipVerification').accepted"
+                                    class="fa fa-check text-success"></i>
+                                <i *ngIf="!getAgentDataByActivity('ipVerification').accepted"
+                                    class="fa fa-times text-danger"></i>
+                            </div>
+                        </div>
+                        <div class="card-body" *ngIf="getAgentDataByActivity('ipVerification') != null">
+                            <div>
+                                <dl class="row">
+                                    <dt class="col-sm-3">IP Address</dt>
+                                    <dd class="col-sm-9">{{getAgentDataByActivity('ipVerification').payload.ip}}</dd>
+                                    <dt class="col-sm-3">Est. Lat/Lng</dt>
+                                    <dd class="col-sm-9">{{getAgentDataByActivity('ipVerification').payload.latitude}},
+                                        {{getAgentDataByActivity('ipVerification').payload.latitude}}</dd>
+                                    <dt class="col-sm-3">Internet Provider</dt>
+                                    <dd class="col-sm-9">
+                                        {{getAgentDataByActivity('ipVerification').payload?.asn?.name}}
+                                    </dd>
+                                    <dt class="col-sm-3">City</dt>
+                                    <dd class="col-sm-9"> {{getAgentDataByActivity('ipVerification').payload.city}}</dd>
+                                    <dt class="col-sm-3">Country</dt>
+                                    <dd class="col-sm-9">
+                                        {{getAgentDataByActivity('ipVerification').payload.country_name}}
+                                    </dd>
+                                    <dt class="col-sm-3">Threat Assessment</dt>
+                                    <dd class="col-sm-9">
+                                        <div class="text-dark ng-star-inserted">
+                                            No Threats Found. The client's IP Address seems to be clean.
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6" *ngIf="hasActivity('geolocationVerification')">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>Geo Location Information</h4>
+                            <div class="card-header-action">
+                                <i *ngIf="getAgentDataByActivity('geolocationVerification').accepted"
+                                    class="fa fa-check text-success"></i>
+                                <i *ngIf="!getAgentDataByActivity('geolocationVerification').accepted"
+                                    class="fa fa-times text-danger"></i>
+                            </div>
+                        </div>
+                        <div class="card-body" *ngIf="getAgentDataByActivity('geolocationVerification') != null">
+                            <div class="col-md-6">
+                                <address>
+                                    <strong>Address</strong><br>
+                                    {{getAgentDataByActivity('geolocationVerification').payload.results[0].formatted_address}}
+                                </address>
+                                <address>
+                                    <strong>Est. Lat/Lng</strong><br>
+                                    {{getAgentDataByActivity('geolocationVerification').payload.results[0].geometry.location.lat}},
+                                    {{getAgentDataByActivity('geolocationVerification').payload.results[0].geometry.location.lng}}
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <p-toast position="top-right"></p-toast>
+</agent-layout>

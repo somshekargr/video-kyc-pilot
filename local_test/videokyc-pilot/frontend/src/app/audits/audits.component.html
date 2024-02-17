@@ -1,0 +1,52 @@
+<agent-layout>
+  <div class="section-body">
+    <div class="card">
+      <div class="card-header">
+        <h4>Audit Logs</h4>
+        <div class="card-header-action">
+          <button (click)="loadCallCompletedSessions(true)" type="button" class="btn btn-primary mr-1"
+            type="button">Refresh</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">SL.No</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Agent</th>
+              <th scope="col">Date</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Queue Status</th>
+              <th scope="col">KYC Status</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let session of callCompletedSessions; let i=index;">
+              <th scope="row">{{i+1}}</th>
+              <td>{{session.customerInfo.name}}</td>
+              <td>{{session.agentInfo.name}}</td>
+              <td>
+                <span tooltipPosition="top" placeholder="Top"
+                  pTooltip="{{session.queueInfo.completedTs
+                    == null ? 'N/A' : session.queueInfo.completedTs | date:'MMM d, y h:mm a'}}">
+                  {{session.queueInfo.completedTs
+                  == null ? 'N/A': session.queueInfo.completedTs| timeAgo}}</span>
+              </td>
+              <td>{{getSessionDuration(session) }}</td>
+              <td>{{getQueueStatus(session.queueInfo.queueStatus) | formatEnum}}</td>
+              <td>{{getKycStatus(session.customerInfo.kycStatus) | formatEnum}}</td>
+              <td>
+                <p-button *ngIf="session.queueInfo.queueStatus == QueueStatus.callCompleted"
+                  (click)="viewAudit(session)" label="View" styleClass="p-button-link"></p-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+  <p-toast position="top-right"></p-toast>
+</agent-layout>

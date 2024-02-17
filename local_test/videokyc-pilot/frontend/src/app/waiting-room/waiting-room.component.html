@@ -1,0 +1,70 @@
+<section class="section">
+    <p-toast></p-toast>
+    <div *ngIf="!loading && !invalidSession && isAllowedForKyc()" class="container mt-2">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                <div class="section-body">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>Video-KYC Waiting Room</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h2 class="text-info">You are in Line</h2>
+                                <p class="lead text-muted mt-3">Please wait till one of our Agent is available for the
+                                    session.</p>
+                                <!-- <div class="jumbotron p-0">
+                                    <p><b>Your estimated wait time is : <span class="text-success">10 Min</span></b></p>
+                                </div> -->
+                                <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
+                                    strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2" *ngIf="!loading && !isAllowedForKyc()">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>KYC Status</h4>
+                    </div>
+                    <div class="card-body">
+                        <div [className]="getCssBasedOnKYC()">
+                            <div style="margin-top:0px" class="alert-icon"><i class="fas fa-info"></i></div>
+                            <div class="alert-body">
+                                <p *ngIf="customerKycStatus == KycStatus.accepted">Your KYC has been completed
+                                    successfully.
+                                </p>
+                                <p *ngIf="customerKycStatus == KycStatus.toBeAudited">Your KYC has been completed
+                                    successfully. Waiting for the approval.</p>
+                                <p *ngIf="customerKycStatus == KycStatus.rejected">Your KYC has been rejected by the
+                                    Agent</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2" *ngIf="!loading && invalidSession">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                <div class="card card-primary">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h2 class="text-danger">Your VKYC link has expired. Kindly re-register yourself to initiate VKYC.</h2>
+                            <button (click)="navigateToHome()" pButton pRipple type="button" label="Go to Home Page"
+                                class="p-button-text p-button-plain"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

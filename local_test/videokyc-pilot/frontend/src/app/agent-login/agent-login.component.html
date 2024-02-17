@@ -1,0 +1,83 @@
+<section class="section">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>Agent Login</h4>
+                        <div class="card-header-action">
+                            <img src="assets/img/digitalworker-logo.png" alt="logo" width="100" class="shadow-light">
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <form (submit)="onSubmit()" [formGroup]="loginForm">
+                            <div class="alert alert-danger" *ngIf="isSessionExpired">
+                                <div class="alert-body">
+                                    <div class="alert-title">Your session has expired.</div>
+                                    Please login again.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input id="username" formControlName="username" type="text" class="form-control"
+                                    name="username" tabindex="1" autofocus
+                                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+                                    placeholder="Enter Username" (blur)="validate('username')">
+                                <div *ngIf="f.username.invalid && f.username.errors?.required && (f.username.touched || f.username.dirty)"
+                                    class="invalid-input">
+                                    Username is required
+                                </div>
+                                <div *ngIf="f.username.errors?.invalidAlphanumeric && (f.username.touched || f.username.dirty)"
+                                    class="invalid-feedback">
+                                    Please use only alphanumeric values as username
+                                </div>
+                                <div *ngIf="f.username.invalid && f.username.errors?.minlength && (f.username.touched || f.username.dirty)"
+                                    class="invalid-input">
+                                    Username should be 5-12 characters alphanumeric value
+                                </div>
+                                <div *ngIf="f.username.invalid && f.username.errors?.maxlength && (f.username.touched || f.username.dirty)"
+                                    class="invalid-input">
+                                    Username should be 5-12 characters alphanumeric value
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-block">
+                                    <label for="password" class="control-label">Password</label>
+                                </div>
+                                <input id="password" formControlName="password" type="password" class="form-control"
+                                    name="password" tabindex="2"
+                                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                                    placeholder="Enter Password" (blur)="validate('password')">
+                                <div *ngIf="f.password.invalid && f.password.errors?.required && (f.password.touched || f.password.dirty)"
+                                    class="invalid-input">
+                                    Password is required
+                                </div>
+
+                                <div *ngIf="f.password.invalid && f.password.errors?.minlength && (f.password.touched || f.password.dirty)"
+                                    class="invalid-input">
+                                    Password should be 5-12 characters alphanumeric value
+                                </div>
+                                <div *ngIf="f.password.invalid && f.password.errors?.maxlength && (f.password.touched || f.password.dirty)"
+                                    class="invalid-input">
+                                    Password should be 5-12 characters alphanumeric value
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="simple-footer">
+                    Copyright © {{copyRightYear}}
+                    <div class="bullet"></div> Design By <a target="_blank" href="https://botaiml.com/">BOTAIML</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-toast position="top-right"></p-toast>
+</section>

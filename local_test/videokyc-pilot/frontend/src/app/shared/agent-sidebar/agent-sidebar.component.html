@@ -1,0 +1,33 @@
+<div class="main-sidebar sidebar-style-2">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a [routerLink]="['/']">
+                <img src="assets/img/digitalworker-logo.png" alt="Chatbot Insights" />
+            </a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a [routerLink]="['/']">
+                <img src="assets/img/tdw.png" alt="Chatbot Insights" />
+            </a>
+        </div>
+        <ul class="sidebar-menu">
+            <li routerLinkActive="active">
+                <a [routerLink]="['/' , AppURL.AgentDashboard]" class="nav-link"><i class="fas fa-chart-pie"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <li class="menu-header">Audit</li>
+            <li routerLinkActive="active">
+                <a [routerLink]="['/' , AppURL.QueueBoard]" class="nav-link"><i
+                        class="fas fa-stream"></i><span>Queue</span></a>
+            </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="['/' , AppURL.Audits]" class="nav-link"><i class="fas fa-tasks"></i><span>Audit
+                        Logs</span></a>
+            </li>
+        </ul>
+        <!-- <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+            <button (click)="logout()" class="btn btn-primary btn-lg btn-block btn-icon-split"> <i class="fas fa-rocket"></i>Logout</button>
+        </div> -->
+    </aside>
+</div>
